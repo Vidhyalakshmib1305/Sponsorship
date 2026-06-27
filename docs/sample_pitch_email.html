@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cult.fit in my DMs</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f5; color: #1a1a1a; }
+  .wrapper { max-width: 620px; margin: 0 auto; background: #ffffff; }
+  .hero { background: linear-gradient(135deg, #ff5a3615, #ff5a3630); padding: 48px 40px 32px; text-align: center; border-bottom: 3px solid #ff5a36; }
+  .hero-tag { display: inline-block; background: #ff5a36; color: white; font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; padding: 6px 16px; border-radius: 20px; margin-bottom: 20px; }
+  .hero-handle { font-size: 28px; font-weight: 700; color: #0a0a0a; margin-bottom: 6px; }
+  .hero-niche { font-size: 14px; color: #666; letter-spacing: 0.06em; text-transform: uppercase; }
+  .stats-row { display: flex; gap: 0; border-bottom: 1px solid #f0f0f0; }
+  .stat-box { flex: 1; padding: 28px 20px; text-align: center; border-right: 1px solid #f0f0f0; }
+  .stat-box:last-child { border-right: none; }
+  .stat-val { font-size: 26px; font-weight: 800; color: #ff5a36; line-height: 1; margin-bottom: 6px; }
+  .stat-label { font-size: 11px; color: #888; letter-spacing: 0.08em; text-transform: uppercase; }
+  .stat-sub { font-size: 10px; color: #aaa; margin-top: 3px; }
+  .body-section { padding: 40px; }
+  .greeting { font-size: 16px; color: #444; margin-bottom: 24px; line-height: 1.7; }
+  .greeting strong { color: #0a0a0a; }
+  .pitch-text { font-size: 15px; line-height: 1.85; color: #333; white-space: pre-line; }
+  .audience-card { background: linear-gradient(135deg, #ff5a3608, #ff5a3615); border: 1px solid #ff5a3630; border-radius: 12px; padding: 24px; margin: 28px 0; }
+  .audience-card-title { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #ff5a36; margin-bottom: 16px; }
+  .audience-grid { display: flex; gap: 16px; flex-wrap: wrap; }
+  .audience-item { flex: 1; min-width: 100px; }
+  .audience-item-val { font-size: 18px; font-weight: 700; color: #0a0a0a; }
+  .audience-item-label { font-size: 11px; color: #888; margin-top: 2px; }
+  .mockup-section { padding: 0 40px 32px; }
+  .mockup-title { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #888; margin-bottom: 16px; }
+  .mockup-img { width: 100%; border-radius: 12px; border: 1px solid #eee; display: block; }
+  .mockup-caption { font-size: 11px; color: #aaa; margin-top: 8px; text-align: center; font-style: italic; }
+  .cta-section { padding: 0 40px 40px; }
+  .cta-box { background: #0a0a0a; border-radius: 12px; padding: 32px; text-align: center; }
+  .cta-rate { font-size: 13px; color: #888; margin-bottom: 8px; letter-spacing: 0.06em; text-transform: uppercase; }
+  .cta-price { font-size: 36px; font-weight: 800; color: white; margin-bottom: 4px; }
+  .cta-per { font-size: 13px; color: #888; margin-bottom: 24px; }
+  .cta-btn { display: inline-block; background: #ff5a36; color: white; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; padding: 14px 36px; border-radius: 8px; text-decoration: none; text-transform: uppercase; }
+  .cta-note { font-size: 11px; color: #666; margin-top: 12px; }
+  .footer { padding: 24px 40px; border-top: 1px solid #f0f0f0; display: flex; justify-content: space-between; align-items: center; }
+  .footer-handle { font-size: 13px; color: #888; }
+  .footer-platform { font-size: 11px; color: #bbb; }
+  .divider { height: 1px; background: #f0f0f0; margin: 0 40px; }
+  @media (max-width: 480px) {
+    .hero { padding: 32px 24px 24px; }
+    .body-section { padding: 28px 24px; }
+    .mockup-section, .cta-section { padding-left: 24px; padding-right: 24px; }
+    .footer { padding: 20px 24px; flex-direction: column; gap: 8px; text-align: center; }
+    .stats-row { flex-wrap: wrap; }
+    .stat-box { min-width: 50%; border-bottom: 1px solid #f0f0f0; }
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- HERO -->
+  <div class="hero">
+    <span class="hero-tag">Sponsorship Pitch</span>
+    <div class="hero-handle">@testcreator</div>
+    <div class="hero-niche">fitness Creator · India</div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-row">
+    <div class="stat-box">
+      <div class="stat-val">45.0K</div>
+      <div class="stat-label">Followers</div>
+      <div class="stat-sub">Instagram</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-val">4.2%</div>
+      <div class="stat-label">Engagement</div>
+      <div class="stat-sub">2.8× industry avg</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-val">55%</div>
+      <div class="stat-label">Female</div>
+      <div class="stat-sub">20-35</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-val">92</div>
+      <div class="stat-label">Fit Score</div>
+      <div class="stat-sub">out of 100</div>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="body-section">
+    <p class="greeting">Hi <strong>Partnerships Team</strong>,</p>
+    <p class="pitch-text">Cult.fit's home workout programs have been the reason my followers actually show up on days they don't feel like it — that kind of impact deserves a proper conversation.<br><br>My Instagram has 45,000 followers with a 4.2% engagement rate — roughly double what most accounts pull — and 55% of them are 20-35 Indian men who already spend ₹3,000+ monthly on fitness. They don't need convincing about fitness. They just need someone they trust pointing them to the right platform.<br><br>Happy to send a media kit. $150 a post, and I make it count.</p>
+  </div>
+
+  <!-- AUDIENCE CARD -->
+  <div style="padding: 0 40px;">
+    <div class="audience-card">
+      <div class="audience-card-title">Who's watching</div>
+      <div class="audience-grid">
+        <div class="audience-item">
+          <div class="audience-item-val">55% male</div>
+          <div class="audience-item-label">Primary gender</div>
+        </div>
+        <div class="audience-item">
+          <div class="audience-item-val">20-35</div>
+          <div class="audience-item-label">Age range</div>
+        </div>
+        <div class="audience-item">
+          <div class="audience-item-val">India</div>
+          <div class="audience-item-label">Top location</div>
+        </div>
+        <div class="audience-item">
+          <div class="audience-item-val">Middle class</div>
+          <div class="audience-item-label">Income level</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI MOCKUP IMAGE -->
+  <div class="mockup-section" style="padding-top: 28px;">
+    <div class="mockup-title">What a sponsored post could look like</div>
+    <img class="mockup-img" src="https://image.pollinations.ai/prompt/professional%20instagram%20influencer%20holding%20Cult.fit%20product%2C%20fitness%20creator%2C%20India%20aesthetic%2C%20clean%20studio%20background%2C%20soft%20natural%20lighting%2C%20instagram%20style%20photo%2C%20high%20quality%20realistic%2C%20no%20text%20no%20watermark?width=800&height=600&nologo=true&seed=1779473655853" alt="Sponsored post mockup for Cult.fit" loading="lazy">
+    <div class="mockup-caption">AI-generated mockup — actual content will be creator-produced and brand-approved</div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- CTA -->
+  <div class="cta-section" style="padding-top: 32px;">
+    <div class="cta-box">
+      <div class="cta-rate">Rate per post</div>
+      <div class="cta-price">$150</div>
+      <div class="cta-per">per sponsored post</div>
+      <a href="mailto:testcreator@gmail.com?subject=Re: Cult.fit in my DMs" class="cta-btn">Reply to discuss →</a>
+      <div class="cta-note">No long contracts · Approval before posting · Simple process</div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-handle">@testcreator · Instagram</div>
+    <div class="footer-platform">Sent via Sponsorship Prospector</div>
+  </div>
+
+</div>
+</body>
+</html>

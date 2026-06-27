@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>@s.nova.vintage × Brand Pitch</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Space+Mono:wght@400;700&display=swap');
+
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--orange:#FF4500;--black:#0a0805;--white:#F5F0E8;--cream:#EDE8DE}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font-family:'Space Mono',monospace;cursor:none;overflow-x:hidden}
+
+/* CUSTOM CURSOR */
+#cursor{position:fixed;width:120px;height:120px;border:1.5px solid rgba(245,240,232,.8);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .12s ease,width .3s ease,height .3s ease,opacity .3s ease;display:flex;align-items:center;justify-content:center;mix-blend-mode:difference}
+#cursor span{font-size:8px;letter-spacing:.18em;text-align:center;line-height:1.4;color:var(--white);text-transform:uppercase;opacity:0;transition:opacity .3s}
+#cursor.dragging span{opacity:1}
+#cursor.dragging{width:140px;height:140px}
+#cursor.small{width:12px;height:12px}
+#cursor-dot{position:fixed;width:6px;height:6px;background:var(--white);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;transition:transform .05s}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:24px 32px;display:flex;align-items:center;justify-content:space-between;mix-blend-mode:difference}
+.nav-left{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--white)}
+.nav-center{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--white);position:absolute;left:50%;transform:translateX(-50%)}
+.nav-right{display:flex;gap:28px;align-items:center}
+.nav-right span{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--white)}
+
+/* HERO */
+#hero{position:relative;width:100vw;height:100vh;overflow:hidden;background:radial-gradient(ellipse at center,#FF5210 0%,#FF4500 40%,#CC3700 100%)}
+#hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 30%,rgba(0,0,0,.45) 100%);pointer-events:none;z-index:1}
+/* GRAIN */
+#hero::before{content:'';position:absolute;inset:0;z-index:2;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='.06'/%3E%3C/svg%3E");
+  opacity:.5}
+
+/* OVERSIZED TYPE */
+.hero-text{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:0 40px;z-index:3;pointer-events:none}
+.hero-line{font-family:'Playfair Display',serif;font-size:clamp(72px,14vw,180px);font-weight:900;letter-spacing:-4px;line-height:.88;color:var(--black);user-select:none;will-change:transform;transition:transform .4s cubic-bezier(.16,1,.3,1)}
+.hero-line.l1{transform:translateX(-3%)}
+.hero-line.l2{transform:translateX(4%);text-indent:6vw}
+.hero-line.l3{transform:translateX(-2%)}
+
+/* 3D CANVAS */
+#three-canvas{position:absolute;inset:0;z-index:4;width:100%;height:100%}
+
+/* SCROLL HINT */
+.scroll-hint{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);z-index:10;font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--black);mix-blend-mode:multiply;display:flex;align-items:center;gap:10px}
+.scroll-line{width:40px;height:1px;background:var(--black);animation:expandLine 2s ease-in-out infinite}
+@keyframes expandLine{0%,100%{width:20px;opacity:.5}50%{width:50px;opacity:1}}
+.ar-badge{position:absolute;bottom:28px;right:32px;z-index:10;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--black);mix-blend-mode:multiply}
+.counter-badge{position:absolute;bottom:28px;left:32px;z-index:10;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--black);mix-blend-mode:multiply}
+
+/* SECTIONS */
+.section{min-height:100vh;position:relative;overflow:hidden;display:flex;align-items:center}
+
+/* SECTION 001 — CREATOR PROFILE */
+.s001{background:var(--black);padding:80px}
+.s001-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;max-width:1200px;margin:0 auto;width:100%}
+.s-label{font-size:9px;letter-spacing:.32em;text-transform:uppercase;color:rgba(245,240,232,.35);margin-bottom:48px}
+.creator-handle{font-family:'Playfair Display',serif;font-size:clamp(48px,8vw,96px);font-weight:900;letter-spacing:-2px;line-height:.9;color:var(--white)}
+.creator-at{color:#FF4500}
+.creator-niche{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#FF4500;margin-top:20px}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:32px}
+.stat-box{background:rgba(245,240,232,.04);border:1px solid rgba(245,240,232,.06);padding:28px 24px;transition:background .3s}
+.stat-box:hover{background:rgba(255,69,0,.06)}
+.stat-num{font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,56px);font-weight:900;letter-spacing:-2px;color:var(--white);line-height:1}
+.stat-unit{color:#FF4500}
+.stat-label{font-size:8px;letter-spacing:.28em;text-transform:uppercase;color:rgba(245,240,232,.35);margin-top:8px}
+.pitch-right{padding-top:120px}
+.pitch-tag{font-size:9px;letter-spacing:.32em;text-transform:uppercase;color:#FF4500;margin-bottom:24px;display:flex;align-items:center;gap:12px}
+.pitch-tag::before{content:'';width:40px;height:1px;background:#FF4500}
+.pitch-greeting{font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,36px);font-weight:900;letter-spacing:-1px;color:var(--white);line-height:1.1;margin-bottom:32px}
+.pitch-body{font-size:13px;line-height:1.9;color:rgba(245,240,232,.6);font-family:'Space Mono',monospace}
+.pitch-body p{margin-bottom:20px}
+.pitch-body p:last-child{margin-bottom:0}
+
+/* SECTION 002 — AUDIENCE */
+.s002{background:var(--cream);padding:80px}
+.s002-inner{max-width:1200px;margin:0 auto;width:100%}
+.big-number{font-family:'Playfair Display',serif;font-size:clamp(120px,22vw,280px);font-weight:900;letter-spacing:-8px;line-height:.8;color:var(--black);opacity:.06;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);white-space:nowrap;pointer-events:none}
+.aud-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;position:relative;z-index:1}
+.aud-box{background:var(--black);padding:40px 32px;transition:background .3s}
+.aud-box:hover{background:#FF4500}
+.aud-icon{font-size:24px;margin-bottom:20px;display:block}
+.aud-val{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,48px);font-weight:900;letter-spacing:-2px;color:var(--white);line-height:1;margin-bottom:8px}
+.aud-key{font-size:8px;letter-spacing:.28em;text-transform:uppercase;color:rgba(245,240,232,.4)}
+.aud-box:hover .aud-val,.aud-box:hover .aud-key,.aud-box:hover .aud-icon{color:var(--black) !important}
+.s002-header{margin-bottom:60px;display:flex;justify-content:space-between;align-items:flex-end}
+.s002-title{font-family:'Playfair Display',serif;font-size:clamp(40px,6vw,72px);font-weight:900;letter-spacing:-2px;color:var(--black);line-height:.9}
+.s002-sub{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:rgba(10,8,5,.4)}
+
+/* MOCKUP SECTION */
+.s003{background:#111009;padding:80px;overflow:hidden}
+.s003-inner{max-width:1200px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.mock-frame{position:relative;border:1px solid rgba(245,240,232,.08)}
+.mock-header{background:rgba(245,240,232,.04);border-bottom:1px solid rgba(245,240,232,.06);padding:14px 20px;display:flex;justify-content:space-between;align-items:center}
+.mock-tag{font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:#FF4500}
+.mock-img{width:100%;display:block;min-height:320px;object-fit:cover;opacity:.85;filter:saturate(1.1)}
+.mock-cap{padding:14px 20px;font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:rgba(245,240,232,.2);font-style:italic}
+.mock-info h3{font-family:'Playfair Display',serif;font-size:clamp(36px,5vw,64px);font-weight:900;letter-spacing:-2px;color:var(--white);line-height:.9;margin-bottom:32px}
+.vintage-tag{display:inline-block;border:1px solid #FF4500;padding:6px 16px;font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:#FF4500;margin-bottom:24px}
+
+/* CTA SECTION */
+.s004{background:#FF4500;min-height:60vh;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:80px;position:relative;overflow:hidden}
+.s004::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 30%,rgba(0,0,0,.2) 100%)}
+.cta-super{font-family:'Playfair Display',serif;font-size:clamp(80px,16vw,200px);font-weight:900;letter-spacing:-6px;line-height:.85;color:var(--black);position:relative;z-index:1}
+.cta-sub{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--black);margin-top:32px;margin-bottom:48px;position:relative;z-index:1;opacity:.7}
+.cta-rate{font-size:clamp(48px,8vw,96px);font-family:'Playfair Display',serif;font-weight:900;letter-spacing:-3px;color:var(--black);position:relative;z-index:1;margin-bottom:8px}
+.cta-note{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:rgba(10,8,5,.5);position:relative;z-index:1;margin-bottom:40px}
+.cta-btn{position:relative;z-index:1;background:var(--black);color:#FF4500;font-size:10px;letter-spacing:.28em;text-transform:uppercase;padding:18px 52px;border:none;font-family:'Space Mono',monospace;cursor:none;transition:background .2s,color .2s}
+.cta-btn:hover{background:var(--white);color:var(--black)}
+
+/* FOOTER */
+footer{background:var(--black);padding:40px 80px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(245,240,232,.06)}
+.f-l{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:rgba(245,240,232,.3)}
+.f-r{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#FF4500}
+
+/* SECTION COUNTER */
+.s-counter{position:absolute;top:32px;left:80px;font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:rgba(245,240,232,.25)}
+.s-counter.dark{color:rgba(10,8,5,.25)}
+
+/* HORIZONTAL RULE */
+.hr{width:100%;height:1px;background:rgba(245,240,232,.06);margin:40px 0}
+.hr.dark{background:rgba(10,8,5,.12)}
+
+/* SCROLL PROGRESS */
+.progress-line{position:fixed;top:0;left:0;height:2px;background:#FF4500;z-index:200;transition:width .1s linear;width:0%}
+
+/* ENTER ANIMATION */
+@keyframes slideUp{from{opacity:0;transform:translateY(60px)}to{opacity:1;transform:none}}
+.hero-line{animation:slideUp .9s cubic-bezier(.16,1,.3,1) both}
+.l1{animation-delay:.1s}.l2{animation-delay:.2s}.l3{animation-delay:.3s}
+nav{animation:slideUp .7s cubic-bezier(.16,1,.3,1) .05s both}
+
+@media(max-width:768px){
+  .s001-inner,.s003-inner{grid-template-columns:1fr}
+  .aud-grid{grid-template-columns:1fr 1fr}
+  nav{padding:18px 20px}
+  .s001,.s002,.s003,.s004{padding:60px 24px}
+  footer{padding:32px 24px;flex-direction:column;gap:16px;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<!-- PROGRESS -->
+<div class="progress-line" id="prog"></div>
+
+<!-- CUSTOM CURSOR -->
+<div id="cursor"><span>HOLD<br>AND<br>DRAG</span></div>
+<div id="cursor-dot"></div>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-left">S.NOVA</span>
+  <span class="nav-center">SPONSORSHIP.PITCH</span>
+  <div class="nav-right">
+    <span>[ BRAND DECK ]</span>
+    <span>[ 001 ]</span>
+    <span>CONTACT</span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-text">
+    <div class="hero-line l1" data-speed="0.03">VINTAGE</div>
+    <div class="hero-line l2" data-speed="-0.04">MEETS</div>
+    <div class="hero-line l3" data-speed="0.025">MODERN</div>
+  </div>
+  <canvas id="three-canvas"></canvas>
+  <div class="scroll-hint"><div class="scroll-line"></div>SCROLL FOR MORE<div class="scroll-line"></div></div>
+  <div class="ar-badge">[ AR ]</div>
+  <div class="counter-badge">001</div>
+</section>
+
+<!-- S001 — CREATOR BIO -->
+<section class="section s001">
+  <div class="s-counter">001 / CREATOR</div>
+  <div class="s001-inner">
+    <div class="pitch-left">
+      <div class="s-label">The Creator</div>
+      <div class="creator-handle"><span class="creator-at">@</span>s.nova.vintage</div>
+      <div class="creator-niche">Vintage Fashion · Lifestyle · Aesthetic</div>
+      <div class="stat-grid">
+        <div class="stat-box">
+          <div class="stat-num">28<span class="stat-unit">K</span></div>
+          <div class="stat-label">Followers</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">5.8<span class="stat-unit">%</span></div>
+          <div class="stat-label">Engagement</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">72<span class="stat-unit">%</span></div>
+          <div class="stat-label">Female</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">88</div>
+          <div class="stat-label">Fit Score / 100</div>
+        </div>
+      </div>
+    </div>
+    <div class="pitch-right">
+      <div class="pitch-tag">The Pitch</div>
+      <div class="pitch-greeting">Dear Brand Partnerships Team,</div>
+      <div class="pitch-body">
+        <p>Your brand has been sitting in my drafts folder for three months — every time my followers ask me where I find pieces like this, I think of you.</p>
+        <p>With 28,000 followers at a 5.8% engagement rate — nearly four times the industry average — my audience isn't scrolling past. They're saving, sharing, and buying. 72% are women aged 18–32 who already spend on curated vintage and aesthetic fashion.</p>
+        <p>One post. $120. And I make it look like it was always meant to be yours.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S002 — AUDIENCE -->
+<section class="section s002" style="flex-direction:column;justify-content:center">
+  <div class="s-counter dark">002 / AUDIENCE</div>
+  <div class="s002-inner">
+    <div class="s002-header">
+      <div class="s002-title">WHO<br>IS<br>WATCHING</div>
+      <div class="s002-sub">Audience<br>breakdown</div>
+    </div>
+    <div class="big-number">28K</div>
+    <div class="aud-grid">
+      <div class="aud-box">
+        <span class="aud-icon">◎</span>
+        <div class="aud-val">72<span style="font-size:.5em;color:#FF4500">%</span></div>
+        <div class="aud-key">Female audience</div>
+      </div>
+      <div class="aud-box">
+        <span class="aud-icon">◈</span>
+        <div class="aud-val">18–32</div>
+        <div class="aud-key">Age range</div>
+      </div>
+      <div class="aud-box">
+        <span class="aud-icon">◉</span>
+        <div class="aud-val">IND</div>
+        <div class="aud-key">Top location</div>
+      </div>
+      <div class="aud-box">
+        <span class="aud-icon">◆</span>
+        <div class="aud-val">5.8<span style="font-size:.5em;color:#FF4500">%</span></div>
+        <div class="aud-key">Engagement rate</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S003 — MOCKUP -->
+<section class="section s003">
+  <div class="s-counter">003 / MOCKUP</div>
+  <div class="s003-inner">
+    <div class="mock-frame">
+      <div class="mock-header">
+        <span class="mock-tag">AI Preview — Sponsored Post Concept</span>
+        <span style="font-size:8px;letter-spacing:.2em;color:rgba(245,240,232,.2)">◉ ◎ ◆</span>
+      </div>
+      <img class="mock-img"
+        src="https://image.pollinations.ai/prompt/aesthetic%20vintage%20fashion%20instagram%20post%2C%20soft%20warm%20tones%2C%20thrifted%20clothing%20flat%20lay%2C%20editorial%20photography%2C%20film%20grain%2C%20neutral%20background%2C%20no%20text?width=600&height=400&nologo=true&seed=99"
+        alt="Sponsored post mockup" loading="lazy"
+        onerror="this.style.minHeight='280px';this.style.background='rgba(255,69,0,.06)'">
+      <div class="mock-cap">Concept only — final content is creator-produced and brand-approved</div>
+    </div>
+    <div class="mock-info">
+      <span class="vintage-tag">[ S.NOVA.VINTAGE ]</span>
+      <h3>WHAT YOUR<br>BRAND LOOKS<br>LIKE HERE.</h3>
+      <div class="hr"></div>
+      <div class="pitch-body">
+        <p>Every post is curated to match the vintage aesthetic my audience followed me for. Your product doesn't interrupt the feed — it becomes part of the story.</p>
+        <p>Approval before publishing. No long contracts. Quick turnaround.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S004 — CTA -->
+<section class="section s004" style="min-height:70vh">
+  <div class="cta-super">$120</div>
+  <div class="cta-sub">Rate per sponsored post</div>
+  <div class="cta-note">No long contracts · Approval before posting · 48hr turnaround</div>
+  <button class="cta-btn" onclick="window.location.href='mailto:s.nova.vintage@gmail.com?subject=Sponsorship Enquiry'">REPLY TO DISCUSS →</button>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="f-l">@s.nova.vintage · Instagram · Vintage Fashion</span>
+  <span class="f-r">Powered by Sponsorship Prospector</span>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+// ── CURSOR ──
+const cur = document.getElementById('cursor');
+const dot = document.getElementById('cursor-dot');
+let mx=0,my=0,cx=0,cy=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;
+  dot.style.left=mx+'px';dot.style.top=my+'px'});
+setInterval(()=>{cx+=(mx-cx)*.12;cy+=(my-cy)*.12;
+  cur.style.left=cx+'px';cur.style.top=cy+'px'},16);
+document.querySelectorAll('button,a,.stat-box,.aud-box').forEach(el=>{
+  el.addEventListener('mouseenter',()=>cur.classList.add('small'));
+  el.addEventListener('mouseleave',()=>cur.classList.remove('small'));
+});
+
+// ── SCROLL PROGRESS ──
+const prog=document.getElementById('prog');
+window.addEventListener('scroll',()=>{
+  const pct=(window.scrollY/(document.body.scrollHeight-window.innerHeight))*100;
+  prog.style.width=pct+'%';
+});
+
+// ── PARALLAX TEXT ──
+document.addEventListener('mousemove',e=>{
+  const rx=(e.clientX/window.innerWidth-.5)*2;
+  const ry=(e.clientY/window.innerHeight-.5)*2;
+  document.querySelectorAll('.hero-line').forEach(el=>{
+    const sp=parseFloat(el.dataset.speed||0);
+    el.style.transform=`translate(${rx*sp*100}px,${ry*sp*40}px)`;
+  });
+});
+
+// ── THREE.JS ──
+const canvas=document.getElementById('three-canvas');
+const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+renderer.setSize(window.innerWidth,window.innerHeight);
+renderer.shadowMap.enabled=true;
+renderer.toneMapping=THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure=1.4;
+
+const scene=new THREE.Scene();
+const camera=new THREE.PerspectiveCamera(45,window.innerWidth/window.innerHeight,.1,100);
+camera.position.set(0,0,5);
+
+// LIGHTS
+scene.add(new THREE.AmbientLight(0xffffff,.3));
+const dir=new THREE.DirectionalLight(0xffffff,1.5);
+dir.position.set(3,4,2);scene.add(dir);
+const pt=new THREE.PointLight(0xFF6030,.8,10);
+pt.position.set(-2,1,-2);scene.add(pt);
+const pt2=new THREE.PointLight(0xffffff,.4,8);
+pt2.position.set(2,-1,3);scene.add(pt2);
+
+// ENV MAP (gradient sphere trick since HDR loader not available via CDN)
+const envGeo=new THREE.SphereGeometry(50,32,32);
+const envMat=new THREE.MeshBasicMaterial({
+  color:0xFF4500,side:THREE.BackSide,
+});
+scene.add(new THREE.Mesh(envGeo,envMat));
+
+// OBJECT — TorusKnot
+const geo=new THREE.TorusKnotGeometry(1.1,.38,200,20,2,3);
+const mat=new THREE.MeshStandardMaterial({
+  color:0xC8A97E,
+  metalness:.95,roughness:.08,
+  envMapIntensity:1.2,
+});
+const obj=new THREE.Mesh(geo,mat);
+scene.add(obj);
+
+// RING ACCENT
+const rGeo=new THREE.TorusGeometry(1.8,.012,8,100);
+const rMat=new THREE.MeshBasicMaterial({color:0xFF4500,transparent:true,opacity:.4});
+const ring=new THREE.Mesh(rGeo,rMat);
+scene.add(ring);
+
+// ORBIT-STYLE DRAG
+let isDragging=false,prevX=0,prevY=0,velX=0,velY=0;
+canvas.addEventListener('mousedown',e=>{isDragging=true;prevX=e.clientX;prevY=e.clientY;velX=velY=0;cur.classList.add('dragging')});
+window.addEventListener('mouseup',()=>{isDragging=false;cur.classList.remove('dragging')});
+window.addEventListener('mousemove',e=>{
+  if(!isDragging)return;
+  velX=(e.clientX-prevX)*.006;velY=(e.clientY-prevY)*.006;
+  obj.rotation.y+=velX;obj.rotation.x+=velY;
+  prevX=e.clientX;prevY=e.clientY;
+});
+
+// ANIMATE
+let t=0;
+(function loop(){requestAnimationFrame(loop);t+=.008;
+  if(!isDragging){
+    velX*=.94;velY*=.94;
+    obj.rotation.y+=.004+velX;
+    obj.rotation.x+=velY*.5;
+  }
+  obj.position.y=Math.sin(t*.7)*.12;
+  ring.rotation.x=t*.3;ring.rotation.z=t*.2;
+  // Scale down on scroll
+  const scrollPct=window.scrollY/window.innerHeight;
+  const scale=Math.max(.2,1-scrollPct*.8);
+  obj.scale.setScalar(scale);ring.scale.setScalar(scale);
+  obj.position.x=scrollPct*2.5;
+  renderer.render(scene,camera);
+})();
+
+window.addEventListener('resize',()=>{
+  renderer.setSize(window.innerWidth,window.innerHeight);
+  camera.aspect=window.innerWidth/window.innerHeight;
+  camera.updateProjectionMatrix();
+});
+
+// ── SCROLL REVEAL ──
+const io=new IntersectionObserver(entries=>entries.forEach(e=>{
+  if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)'}
+}),{threshold:.1});
+document.querySelectorAll('.stat-box,.aud-box,.pitch-body,.mock-frame,.mock-info,.cta-super').forEach(el=>{
+  el.style.opacity='0';el.style.transform='translateY(40px)';
+  el.style.transition='opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)';
+  io.observe(el);
+});
+</script>
+</body>
+</html>
